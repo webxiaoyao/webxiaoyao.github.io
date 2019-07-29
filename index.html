@@ -9,15 +9,15 @@
 	<div>
 		<div>
 			<label for="">audio Source</label>
-			<select name="" id="audio-source"></select>
+			<select name="" id="audioSource"></select>
 		</div>
 		<div>
 			<label for="">audio output</label>
-			<select name="" id="audio-output"></select>
+			<select name="" id="audioOutput"></select>
 		</div>
 		<div>
 			<label for="">video Source</label>
-			<select name="" id="video-source"></select>
+			<select name="" id="videoSource"></select>
 		</div>
 		<video autoplay playsinline id="player"></video>
 	</div>
@@ -28,9 +28,9 @@
 			return navigator.mediaDevices.enumerateDevices()
 		}
 		function gotMediaDevices(devicesInfos) {
-			var audioSource = document.querySelector('select#audio-source')
-			var audioOutput = document.querySelector('select#audio-output')
-			var videoSource = document.querySelector('select#video-source')
+			var audioSource = document.querySelector('select#audioSource')
+			var audioOutput = document.querySelector('select#audioOutput')
+			var videoSource = document.querySelector('select#videoSource')
 			devicesInfos.forEach(function (deviceInfo) {
 				var option = document.createElement('option')
 				option.text = deviceInfo.label
@@ -44,9 +44,6 @@
 				}
 			})
 		}
-
-
-
 
 		function init() {
 			if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
