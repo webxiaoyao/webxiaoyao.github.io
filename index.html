@@ -3,12 +3,51 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
 <body>
 	<div>
+		<div>
+			<label for="">audio Source</label>
+			<select name="" id="audio-source"></select>
+		</div>
+		<div>
+			<label for="">audio output</label>
+			<select name="" id="audio-output"></select>
+		</div>
+		<div>
+			<label for="">video Source</label>
+			<select name="" id="video-source"></select>
+		</div>
 		<video autoplay playsinline id="player"></video>
 	</div>
 	<script>
+		function gotUserMedia(stream) {
+			var video = document.querySelector('#player')
+			video.srcObject = stream
+			return navigator.mediaDevices.enumerateDevices()
+		}
+		function gotMediaDevices(devicesInfos) {
+			var audioSource = document.querySelector('select#audio-source')
+			var audioOutput = document.querySelector('select#audio-output')
+			var videoSource = document.querySelector('select#video-source')
+			devicesInfos.forEach(function (deviceInfo) {
+				var option = document.createElement('option')
+				option.text = deviceInfo.label
+				option.value = deviceInfo.deviceId
+				if (deviceInfo.kind === 'audioinput') {
+					audioSource.appendChild(option)
+				} else if (deviceInfo.kind === 'audiooutput') {
+					audioOutput.appendChild(option)
+				} else if (deviceInfo.kind === 'videoinput') {
+					videoSource.appendChild(option)
+				}
+			})
+		}
+
+
+
+
 		function init() {
 			if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
 				console.log('当前浏览器不支持')
@@ -18,16 +57,12 @@
 				video: true,
 				audio: true
 			}
-			navigator.mediaDevices.getUserMedia(constraints).then(res => {
-				console.log(res)
-				var video = document.querySelector('#player')
-				video.srcObject = res
-				video.onloadedmetadata = function(e) {
-			    video.play();
-			  }
-			}).catch(err => {
-				console.log('err' + err)
-			})
+			navigator.mediaDevices.getUserMedia(constraints)
+							.then(gotUserMedia)
+							.then(gotMediaDevices)
+							.catch(err => {
+								console.log('err' + err)
+							})
 		}
 		init()
 	</script>
