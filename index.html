@@ -20,6 +20,12 @@
 			<select name="" id="videoSource"></select>
 		</div>
 		<video autoplay playsinline id="player"></video>
+		<div>
+			<button id="snap-shot">Take snapShot</button>
+		</div>
+		<div>
+			<canvas id="picture"></canvas>
+		</div>
 	</div>
 	<script>
 		function gotUserMedia(stream) {
@@ -44,7 +50,6 @@
 				}
 			})
 		}
-
 		function init() {
 			if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
 				console.log('当前浏览器不支持')
@@ -67,6 +72,14 @@
 							})
 		}
 		init()
+		var snapShot = document.querySelector('button#snap-shot')
+		snapShot.onclick = function () {
+			var picture= document.querySelector('canvas#picture')
+			picture.width = 320
+			picture.height = 640
+			var video = document.querySelector('#player')
+			picture.getContext('2d').drawImage(video, 0, 0, picture.width, picture.height)
+		}
 	</script>
 </body>
 </html>
