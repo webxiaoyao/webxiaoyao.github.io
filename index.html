@@ -5,6 +5,31 @@
 	<title>Document</title>
 </head>
 <body>
-	<h1>Hello World</h1>
+	<div>
+		<audio autoplay playsinline id="player"></audio>
+	</div>
+	<script>
+		function init() {
+			if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+				console.log('当前浏览器不支持')
+				return
+			}
+			var constraints = {
+				video: true,
+				audio: true
+			}
+			navigator.mediaDevices.getUserMedia(constraints).then(res => {
+				console.log(res)
+				var video = document.querySelector('#player')
+				video.srcObject = res
+				video.onloadedmetadata = function(e) {
+			    video.play();
+			  }
+			}).catch(err => {
+				console.log('err' + err)
+			})
+		}
+		init()
+	</script>
 </body>
 </html>
