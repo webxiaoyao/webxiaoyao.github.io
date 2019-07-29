@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div>
-		<audio autoplay playsinline id="player"></audio>
+		<video autoplay playsinline id="player"></video>
 	</div>
 	<script>
 		function init() {
@@ -15,7 +15,7 @@
 				return
 			}
 			var constraints = {
-				video: true,
+				video: false,
 				audio: true
 			}
 			navigator.mediaDevices.getUserMedia(constraints).then(res => {
