@@ -96,12 +96,12 @@
 		// 	picture.getContext('2d').drawImage(video, 0, 0, picture.width, picture.height)
 		// }
 		btnRecord.onclick = function () {
-			if (btnRecord.innerText === '开始录制') {
+			if (btnRecord.innerHTML === '开始录制') {
 				startRecord()
-				btnRecord.innerText === '结束录制'
+				btnRecord.innerHTML === '结束录制'
 			} else {
 				endRecord()
-				btnRecord.innerText = '开始录制'
+				btnRecord.innerHTML = '开始录制'
 			}
 		}
 		function startRecord() {
