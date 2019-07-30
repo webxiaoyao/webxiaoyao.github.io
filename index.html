@@ -123,7 +123,7 @@
 			mediaRecorder.start(10)
 		}
 		function handleDataAvailable(e) {
-			if (e && e.data && e.datasize) {
+			if (e && e.data && e.data.size) {
 				buffer.push(e.data)
 			}
 		}
