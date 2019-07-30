@@ -20,17 +20,26 @@
 			<select name="" id="videoSource"></select>
 		</div>
 		<video autoplay playsinline id="player"></video>
-		<div>
+		<!-- <div>
 			<button id="snap-shot">Take snapShot</button>
 		</div>
 		<div>
 			<canvas id="picture"></canvas>
+		</div> -->
+		<div>
+			<video playsinline id="recPlayer"></video>
+		</div>
+		<div>
+			<button id="start">开始录制</button>
+			<button id="play">播放录制</button>
+			<button id="download">下载</button>
 		</div>
 	</div>
 	<script>
 		function gotUserMedia(stream) {
 			var video = document.querySelector('#player')
 			video.srcObject = stream
+			window.stream = stream
 			return navigator.mediaDevices.enumerateDevices()
 		}
 		function gotMediaDevices(devicesInfos) {
@@ -72,13 +81,61 @@
 							})
 		}
 		init()
-		var snapShot = document.querySelector('button#snap-shot')
-		snapShot.onclick = function () {
-			var picture= document.querySelector('canvas#picture')
-			picture.width = 320
-			picture.height = 240
-			var video = document.querySelector('#player')
-			picture.getContext('2d').drawImage(video, 0, 0, picture.width, picture.height)
+		var recVedio = document.querySelector('video#recPlayer')
+		var btnRecord = document.querySelector('button#start')
+		var btnPlay = document.querySelector('button#play')
+		var btnDownload = document.querySelector('button#download')
+		var mediaRecorder
+		var buffer
+		// var snapShot = document.querySelector('button#snap-shot')
+		// snapShot.onclick = function () {
+		// 	var picture= document.querySelector('canvas#picture')
+		// 	picture.width = 320
+		// 	picture.height = 240
+		// 	var video = document.querySelector('#player')
+		// 	picture.getContext('2d').drawImage(video, 0, 0, picture.width, picture.height)
+		// }
+		btnRecord.onclick = function () {
+			if (btnRecord.innerText === '开始录制') {
+				startRecord()
+				btnRecord.innerText === '结束录制'
+			} else {
+				endRecord()
+				btnRecord = '开始录制'
+			}
+		}
+		function startRecord() {
+			buffer = []
+			var options = {
+				mimeType: 'video/webm;codecs=vp8'
+			}
+			if (!MediaRecorder.isTypeSupported) {
+				console.error('此种视频格式不支持录制')
+				return
+			}
+			try {
+				mediaRecorder = new MediaRecorder(window.stream, options)
+			} catch(e) {
+				console.error('fail to create mediaRecorder', e)
+				return
+			}
+			mediaRecorder.ondataavailable = handleDataAvailable
+			mediaRecorder.start(10)
+		}
+		function handleDataAvailable(e) {
+			if (e && e.data && e.datasize) {
+				buffer.push(e.data)
+			}
+		}
+		function endRecord() {
+			mediaRecorder.stop()
+		}
+		btnPlay.onclick = function () {
+			var blob = new Blob(buffer, {type: 'video/webm'})
+			recVedio.src = window.URL.createObjectURL(blob)
+			recVedio.srcObject = null
+			recVedio.controls = true
+			recVedio.play()
 		}
 	</script>
 </body>
