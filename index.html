@@ -2,150 +2,32 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<title>Document</title>
-	<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 </head>
 <body>
-	<div>
-		<div>
-			<label for="">audio Source</label>
-			<select name="" id="audioSource"></select>
-		</div>
-		<div>
-			<label for="">audio output</label>
-			<select name="" id="audioOutput"></select>
-		</div>
-		<div>
-			<label for="">video Source</label>
-			<select name="" id="videoSource"></select>
-		</div>
-		<video autoplay playsinline id="player"></video>
-		<!-- <div>
-			<button id="snap-shot">Take snapShot</button>
-		</div>
-		<div>
-			<canvas id="picture"></canvas>
-		</div> -->
-		<div>
-			<video playsinline id="recPlayer"></video>
-		</div>
-		<div>
-			<button id="start">开始录制</button>
-			<button id="play">播放录制</button>
-			<button id="download">下载</button>
-		</div>
-	</div>
-	<script>
-		function gotUserMedia(stream) {
-			var video = document.querySelector('#player')
-			video.srcObject = stream
-			window.stream = stream
-			return navigator.mediaDevices.enumerateDevices()
-		}
-		function gotMediaDevices(devicesInfos) {
-			var audioSource = document.querySelector('select#audioSource')
-			var audioOutput = document.querySelector('select#audioOutput')
-			var videoSource = document.querySelector('select#videoSource')
-			devicesInfos.forEach(function (deviceInfo) {
-				var option = document.createElement('option')
-				option.text = deviceInfo.label
-				option.value = deviceInfo.deviceId
-				if (deviceInfo.kind === 'audioinput') {
-					audioSource.appendChild(option)
-				} else if (deviceInfo.kind === 'audiooutput') {
-					audioOutput.appendChild(option)
-				} else if (deviceInfo.kind === 'videoinput') {
-					videoSource.appendChild(option)
-				}
-			})
-		}
-		function init() {
-			if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-				console.log('当前浏览器不支持')
-				return
-			}
-			var constraints = {
-				video: {
-					width: 320,
-					height: 240,
-					frameRate: 30, // 帧
-					facingMode: 'environment' // 后置摄像头 user前置摄像头
-				},
-				audio: true
-			}
-			navigator.mediaDevices.getUserMedia(constraints)
-							.then(gotUserMedia)
-							.then(gotMediaDevices)
-							.catch(err => {
-								console.log('err' + err)
-							})
-		}
-		init()
-		var recVedio = document.querySelector('video#recPlayer')
-		var btnRecord = document.querySelector('button#start')
-		var btnPlay = document.querySelector('button#play')
-		var btnDownload = document.querySelector('button#download')
-		var mediaRecorder
-		var buffer
-		// var snapShot = document.querySelector('button#snap-shot')
-		// snapShot.onclick = function () {
-		// 	var picture= document.querySelector('canvas#picture')
-		// 	picture.width = 320
-		// 	picture.height = 240
-		// 	var video = document.querySelector('#player')
-		// 	picture.getContext('2d').drawImage(video, 0, 0, picture.width, picture.height)
-		// }
-		btnRecord.onclick = function () {
-			if (btnRecord.innerHTML === '开始录制') {
-				startRecord()
-				btnRecord.innerHTML = '结束录制'
-			} else {
-				endRecord()
-				btnRecord.innerHTML = '开始录制'
-			}
-		}
-		function startRecord() {
-			buffer = []
-			var options = {
-				mimeType: 'video/webm;codecs=vp8'
-			}
-			if (!MediaRecorder.isTypeSupported) {
-				console.error('此种视频格式不支持录制')
-				return
-			}
-			try {
-				mediaRecorder = new MediaRecorder(window.stream, options)
-			} catch(e) {
-				console.error('fail to create mediaRecorder', e)
-				return
-			}
-			mediaRecorder.ondataavailable = handleDataAvailable
-			mediaRecorder.start(10)
-		}
-		function handleDataAvailable(e) {
-			if (e && e.data && e.data.size) {
-				buffer.push(e.data)
-			}
-		}
-		function endRecord() {
-			mediaRecorder.stop()
-		}
-		btnPlay.onclick = function () {
-			var blob = new Blob(buffer, {type: 'video/webm'})
-			recVedio.src = window.URL.createObjectURL(blob)
-			recVedio.srcObject = null
-			recVedio.controls = true
-			recVedio.play()
-		}
-		btnDownload.onclick = function () {
-			var blob = new Blob(buffer, {type: 'video/webm'})
-			var url = window.URL.createObjectURL(blob)
-			var a = document.createElement('a')
-			a.href = url
-			a.style.display = 'none'
-			a.download = 'aaa.webm'
-			a.click()
-		}
-	</script>
+  <p><span style="display: inline-block;width: 100px;text-align: right;">预算值：</span><input type="text" id="ipt1" value="1800">万</p>
+  <p><span style="display: inline-block;width: 100px;text-align: right;">报价平均值：</span><input type="text" id="ipt2">万</p>
+  <p><span style="display: inline-block;width: 100px;text-align: right;">报价：</span><input type="text" id="ipt3">万</p>
+  <p><span style="display: inline-block;width: 100px;text-align: right;">打分：</span><span id="score"></span></p>
+  <button id="count2" onclick="count()">计算</button>
+  <script>
+    function count() {
+      var ipt1Value = document.getElementById('ipt1').value
+      var ipt2Value = document.getElementById('ipt2').value
+      var ipt3Value = document.getElementById('ipt3').value
+      var scopeDom = document.getElementById('score')
+      var count2 = document.getElementById('count2')
+      var score = ''
+      var basic = ipt2Value * 0.6 + ipt1Value * 0.4
+      console.log('basic', basic)
+      if (ipt3Value > basic) {
+        score = 10 - (ipt3Value - basic) / basic * 12
+      } else {
+        score = 10 - (basic - ipt3Value) / basic * 10
+      }
+      scopeDom.innerHTML = score
+    }
+  </script>
 </body>
 </html>
