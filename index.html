@@ -15,35 +15,7 @@
 	</style>
 </head>
 <body>
-  <p style="margin-top: 60px">
-  	<span style="display: inline-block;width: 120px;text-align: right;">预算值：</span>
-  	<input type="number" id="ipt1" value="1800">万
-  </p>
-  <p>
-  	<span style="display: inline-block;width: 120px;text-align: right;">报价平均值：</span>
-  	<input type="number" id="ipt2">万
-  </p>
-  <p>
-  	<span style="display: inline-block;width: 120px;text-align: right;">报价：</span>
-  	<input type="number" id="ipt3">万</p>
-  <button id="count2" onclick="count()" style="display: block;width: 80%; margin: 0 auto; height: 30px">计算</button>
-  <script>
-    function count() {
-      var ipt1Value = document.getElementById('ipt1').value
-      var ipt2Value = document.getElementById('ipt2').value
-      var ipt3Value = document.getElementById('ipt3').value
-      var scopeDom = document.getElementById('score')
-      var count2 = document.getElementById('count2')
-      var score = ''
-      var basic = ipt2Value * 0.6 + ipt1Value * 0.4
-      console.log('basic', basic)
-      if (ipt3Value > basic) {
-        score = 10 - (ipt3Value - basic) / basic * 12
-      } else {
-        score = 10 - (basic - ipt3Value) / basic * 10
-      }
-      alert('基准价：' + basic + '\n打分：' + score)
-    }
+  <div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=2&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
   </script>
 </body>
 </html>
