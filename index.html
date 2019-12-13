@@ -2,20 +2,34 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Document</title>
-	<style>
-		span{
-			font-size: 20px
-		}
-		input{
-			font-size: 20px;
-			width: 100px
-		}
-	</style>
+	<title>疫苗查询</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 </head>
 <body>
-  <div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinaminiblog"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="1.js"></script><script type="text/javascript" charset="utf-8" src="2.js"></script>
-  </script>
+	<p>本位码:<input type="text" id="number"></p>
+	<p><button type="button" onclick="query()">查询</button></p>
+	<p>查询结果GJYPBSM:<span style="color: red" id="result"></span></p>
+	<script src="data.js"></script>
+	<script>
+		console.log(json)
+		function query() {
+			var result
+			var number = document.getElementById('number').value.substring(0, 7)
+			var resultT = document.getElementById('result')
+			if (number.length < 7) {
+				alert('本位码不全')
+				return
+			}
+			for(var i = 0; i < json.length; i ++) {
+				if (json[i].YPBSM === number) {
+					result = json[i]
+					break
+				}
+			}
+			if(result) {
+				resultT.innerHTML = result.GJYPBSM
+			}
+		}
+	</script>
 </body>
 </html>
