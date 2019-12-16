@@ -17,7 +17,7 @@
 		<p>GJYPBSM: <span style="color: red" id="result"></span></p>
 		<p>YPTYMC: <span style="color: red" id="result2"></span></p>
 	</div>
-	<div id="no-result" style="display: none">暂无结果</div>
+	<div id="no-result" style="color: red; display: none">暂无结果</div>
 	<script src="data.js"></script>
 	<script>
 		console.log(json)
@@ -46,7 +46,8 @@
 		}
 		function reset() {
 			document.getElementById('number').value = ''
-			query()
+			document.getElementById('has-result').style.display = 'none'
+			document.getElementById('no-result').style.display = 'none'
 		}
 	</script>
 </body>
