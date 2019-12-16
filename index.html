@@ -11,10 +11,13 @@
 	</style>
 </head>
 <body>
-	<p>本位码:<input type="text" id="number" style="width: 600px" oninput="query()"><button type="button" onclick="query()" style="margin-left: 10px">查询</button><button type="button" onclick="reset()" style="margin-left: 10px">重置</button></p>
+	<p>本位码:<input type="text" id="number" style="width: 600px" oninput="query()"><button type="button" onclick="reset()" style="margin-left: 10px">重置</button></p>
 	<p>查询结果</p>
-	<p>GJYPBSM: <span style="color: red" id="result"></span></p>
-	<p>YPTYMC: <span style="color: red" id="result2"></span></p>
+	<div id="has-result" style="display: none">
+		<p>GJYPBSM: <span style="color: red" id="result"></span></p>
+		<p>YPTYMC: <span style="color: red" id="result2"></span></p>
+	</div>
+	<div id="no-result" style="display: none">暂无结果</div>
 	<script src="data.js"></script>
 	<script>
 		console.log(json)
@@ -32,9 +35,13 @@
 			if(result) {
 				resultT.innerHTML = result.GJYPBSM
 				resultT2.innerHTML = result.YPTYMC
+				document.getElementById('has-result').style.display = 'block'
+				document.getElementById('no-result').style.display = 'none'
 			} else {
 				resultT.innerHTML = ''
 				resultT2.innerHTML = ''
+				document.getElementById('has-result').style.display = 'none'
+				document.getElementById('no-result').style.display = 'block'
 			}
 		}
 		function reset() {
