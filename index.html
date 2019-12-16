@@ -4,11 +4,17 @@
 	<meta charset="UTF-8">
 	<title>疫苗查询</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<style>
+		*{
+			font-size: 40px
+		}
+	</style>
 </head>
 <body>
-	<p>本位码:<input type="text" id="number"></p>
-	<p><button type="button" onclick="query()">查询</button></p>
-	<p>查询结果GJYPBSM:<span style="color: red" id="result"></span></p>
+	<p>本位码:<input type="text" id="number"><button type="button" onclick="query()" style="margin-left: 10px">查询</button></p>
+	<p>查询结果</p>
+	<p>GJYPBSM: <span style="color: red" id="result"></span></p>
+	<p>YPTYMC: <span style="color: red" id="result2"></span></p>
 	<script src="data.js"></script>
 	<script>
 		console.log(json)
@@ -16,6 +22,7 @@
 			var result
 			var number = document.getElementById('number').value.substring(0, 7)
 			var resultT = document.getElementById('result')
+			var resultT2 = document.getElementById('result2')
 			if (number.length < 7) {
 				alert('本位码不全')
 				return
@@ -28,6 +35,10 @@
 			}
 			if(result) {
 				resultT.innerHTML = result.GJYPBSM
+				resultT2.innerHTML = result.YPTYMC
+			} else {
+				resultT.innerHTML = ''
+				resultT2.innerHTML = ''
 			}
 		}
 	</script>
