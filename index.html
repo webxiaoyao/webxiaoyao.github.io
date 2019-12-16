@@ -11,7 +11,7 @@
 	</style>
 </head>
 <body>
-	<p>本位码:<input type="text" id="number"><button type="button" onclick="query()" style="margin-left: 10px">查询</button></p>
+	<p>本位码:<input type="text" id="number" style="width: 600px" oninput="query()"><button type="button" onclick="query()" style="margin-left: 10px">查询</button><button type="button" onclick="reset()" style="margin-left: 10px">重置</button></p>
 	<p>查询结果</p>
 	<p>GJYPBSM: <span style="color: red" id="result"></span></p>
 	<p>YPTYMC: <span style="color: red" id="result2"></span></p>
@@ -23,10 +23,6 @@
 			var number = document.getElementById('number').value.substring(0, 7)
 			var resultT = document.getElementById('result')
 			var resultT2 = document.getElementById('result2')
-			if (number.length < 7) {
-				alert('本位码不全')
-				return
-			}
 			for(var i = 0; i < json.length; i ++) {
 				if (json[i].YPBSM === number) {
 					result = json[i]
@@ -40,6 +36,10 @@
 				resultT.innerHTML = ''
 				resultT2.innerHTML = ''
 			}
+		}
+		function reset() {
+			document.getElementById('number').value = ''
+			query()
 		}
 	</script>
 </body>
