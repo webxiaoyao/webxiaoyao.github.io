@@ -1,0 +1,47 @@
+/* CSS Document */
+body{background:#e4e5e9 url(/dist/images/xmsb01.jpg) no-repeat; padding:0px; margin:0px; font-size:14px; font-family: "宋体", Arial;}
+div{ padding:0px; margin:0px;}
+ul{ padding:0px; margin:0px; list-style:none;}
+li{ padding:0px; margin:0px;}
+p{ padding:0px; margin:0px;}
+h1{ padding:0px; margin:0px;}
+img{ border:none;}
+.clear{ clear:both;}
+a{text-decoration:none;}
+a:hover{text-decoration: underline;}
+
+.box{
+width:986px;
+margin:0 auto;
+background-color:#fff;
+}
+.center{padding:15px 0px 15px 10px; float:left; width:976px;}
+.center_1{padding:15px 0px 15px 0px; float:left; width:986px;}
+.an{list-style:none;}
+.an li{float:left; width:457px; margin:0 15px 40px 15px;}
+.left{float:left; width:260px;}
+.an_l{list-style:none; padding:5px 10px 10px 10px; width:240px;}
+.an_l li{ font-size:13px; color:#000; border-bottom:1px dashed #4f504f; padding:5px 5px 10px 5px; margin-bottom:5px;}
+.an_l li a{font-size:13px; color:#000;}
+.an_l li a:hover{font-size:13px; color:#2981d3;}
+.right{float:left; width:705px; border-left:1px solid #b3b3b3; padding:0 10px;}
+.news_t{border-bottom:1px solid #d0d0d0; margin-bottom:20px; text-align:center; padding:10px 0;}
+.news_t h1{font-family:"微软雅黑"; font-size:23px; color:#343434; font-weight:normal; padding:10px 0;}
+.news_z{padding:15px 10px; width:695px; display:block; color:#343434; font-size:14px; line-height:33px;}
+.footer{ clear:both; background:url(/dist/images/xmsb03.jpg) no-repeat; width:986px; height:90px; font-size:13px; color:#fff; font-family: "宋体", Arial; text-align:center; line-height:25px; padding-top:15px;}
+/*.biao01{
+border:1px solid #67a702;
+height:22px;
+}
+.zi01{
+font-size:15px;
+font-weight:bold;
+}
+.zi02{
+font-size:15px;
+color:#333333;
+}
+.zi04{
+font-size:13px;
+color:#484848;
+}*/
